@@ -9,6 +9,7 @@ import { useScrollTop } from "@/hooks/use-scroll-top";
 import { Logo } from "@/components/logo";
 
 const navLinks = [
+    { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Experience", href: "/experience" },
@@ -46,13 +47,13 @@ export const Navbar = () => {
     return (
         <nav
             className={cn(
-                "fixed top-0 z-50 w-full transition-all duration-300 border-b",
-                scrolled
-                    ? "bg-background/95 backdrop-blur-md py-2 border-border shadow-sm"
-                    : "bg-transparent py-6 border-transparent"
+                "fixed top-0 w-full transition-all duration-300 border-b",
+                scrolled || isOpen
+                    ? "bg-white dark:bg-zinc-950 py-2 border-border shadow-sm z-50"
+                    : "bg-transparent py-6 border-transparent z-50"
             )}
         >
-            <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+            <div className="container mx-auto px-4 md:px-6 flex items-center justify-between relative z-10">
                 <Logo />
 
                 {/* Desktop Navigation */}
@@ -80,7 +81,10 @@ export const Navbar = () => {
                 {/* Mobile Toggle */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="md:hidden flex items-center justify-center h-12 w-12 text-foreground -mr-2"
+                    className={cn(
+                        "md:hidden flex items-center justify-center h-12 w-12 -mr-2 relative z-50 transition-colors rounded-lg",
+                        isOpen ? "text-foreground bg-zinc-100 dark:bg-zinc-800" : "text-foreground"
+                    )}
                     aria-expanded={isOpen}
                     aria-label="Toggle menu"
                 >
@@ -91,17 +95,17 @@ export const Navbar = () => {
             {/* Mobile Menu */}
             <div
                 className={cn(
-                    "fixed inset-0 top-[60px] z-40 bg-background md:hidden transition-transform duration-300 ease-in-out",
+                    "fixed inset-0 top-0 z-40 md:hidden transition-transform duration-300 ease-in-out bg-white dark:bg-zinc-950 overflow-y-auto",
                     isOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >
-                <div className="flex flex-col p-6 gap-6">
+                <div className="flex flex-col pt-[72px] px-6 pb-6 gap-4 min-h-screen">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
                             className={cn(
-                                "text-2xl font-serif border-b border-border pb-4",
+                                "text-xl font-serif border-b border-border pb-3",
                                 pathname === link.href ? "text-accent" : "text-foreground"
                             )}
                         >
@@ -110,7 +114,7 @@ export const Navbar = () => {
                     ))}
                     <Link
                         href="/contact"
-                        className="flex items-center justify-between bg-primary text-primary-foreground p-4 rounded-md text-lg font-medium mt-4"
+                        className="flex items-center justify-between bg-primary text-primary-foreground p-4 rounded-xl text-base font-semibold mt-2"
                     >
                         Connect <ArrowRight size={20} />
                     </Link>

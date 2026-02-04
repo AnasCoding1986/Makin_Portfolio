@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Reveal } from "@/components/reveal";
-import { Filter, ShieldAlert } from "lucide-react";
+import { Filter, ShieldAlert, Scale, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const categories = ["All", "Constitutional", "Civil", "Criminal", "Tax & Regulatory"];
@@ -59,72 +59,133 @@ export const MattersClient = () => {
         ? matters
         : matters.filter(m => m.category === activeCategory);
 
+    // Get count for each category
+    const getCategoryCount = (cat: string) => {
+        if (cat === "All") return matters.length;
+        return matters.filter(m => m.category === cat).length;
+    };
+
     return (
-        <section className="py-20 bg-background min-h-[600px]">
+        <section className="py-24 md:py-32 bg-white dark:bg-zinc-900">
             <div className="container mx-auto px-4 md:px-6">
-                {/* Disclaimer */}
-                <Reveal className="mb-12 flex items-start gap-4 p-6 bg-muted/30 border border-border rounded-xl max-w-4xl">
-                    <ShieldAlert className="text-accent shrink-0 mt-1" size={24} />
-                    <div>
-                        <p className="text-sm font-bold uppercase tracking-widest text-foreground mb-2">Confidentiality Notice</p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                            In accordance with the Bar Standards Board (UK) and Bangladesh Bar Council ethical guidelines, specific client names and sensitive case identifiers have been omitted. The summaries below focus on the legal technicality and role performed.
-                        </p>
+                {/* Enhanced Disclaimer */}
+                <Reveal className="mb-16">
+                    <div className="relative max-w-4xl bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-800 dark:to-zinc-900 p-8 md:p-10 rounded-2xl border-2 border-zinc-200 dark:border-zinc-700 shadow-sm overflow-hidden">
+                        {/* Decorative Glow */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl" />
+
+                        <div className="relative flex items-start gap-4">
+                            <div className="p-3 bg-accent/10 rounded-xl shrink-0">
+                                <ShieldAlert className="text-accent" size={28} />
+                            </div>
+                            <div>
+                                <p className="text-sm font-bold uppercase tracking-widest text-accent mb-3">Confidentiality Notice</p>
+                                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                                    In accordance with the Bar Standards Board (UK) and Bangladesh Bar Council ethical guidelines, specific client names and sensitive case identifiers have been omitted. The summaries below focus on the legal technicality and role performed.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </Reveal>
 
-                {/* Filter Chips */}
-                <Reveal delay={200} className="flex flex-wrap items-center gap-3 mb-16">
-                    <div className="flex items-center gap-2 mr-4 text-muted-foreground">
-                        <Filter size={18} />
-                        <span className="text-sm font-bold uppercase tracking-wider">Filter by:</span>
+                {/* Enhanced Filter Chips */}
+                <Reveal delay={200} className="mb-16">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-accent/20" />
+                        <div className="flex items-center gap-2 text-accent">
+                            <Filter size={18} />
+                            <span className="text-sm font-bold uppercase tracking-wider">Filter Cases</span>
+                        </div>
+                        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-accent/20" />
                     </div>
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={cn(
-                                "px-6 py-2 rounded-full text-sm font-bold transition-all border",
-                                activeCategory === cat
-                                    ? "bg-primary text-white border-primary shadow-md"
-                                    : "bg-background text-muted-foreground border-border hover:border-accent hover:text-accent"
-                            )}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+
+                    <div className="flex flex-wrap items-center justify-center gap-3">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={cn(
+                                    "group relative px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 border-2",
+                                    activeCategory === cat
+                                        ? "bg-accent text-white border-accent shadow-lg scale-105"
+                                        : "bg-white dark:bg-zinc-800 text-muted-foreground border-zinc-200 dark:border-zinc-700 hover:border-accent hover:text-accent hover:scale-105"
+                                )}
+                            >
+                                <span className="flex items-center gap-2">
+                                    {cat}
+                                    <span className={cn(
+                                        "px-2 py-0.5 rounded-full text-xs font-bold",
+                                        activeCategory === cat
+                                            ? "bg-white/20 text-white"
+                                            : "bg-accent/10 text-accent"
+                                    )}>
+                                        {getCategoryCount(cat)}
+                                    </span>
+                                </span>
+                            </button>
+                        ))}
+                    </div>
                 </Reveal>
 
-                {/* Grid */}
+                {/* Enhanced Matter Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {filteredMatters.map((matter, i) => (
-                        <Reveal key={matter.title} className="flex flex-col h-full">
-                            <div className="p-10 rounded-xl border border-border bg-background hover:border-accent transition-all duration-300 flex flex-col h-full shadow-sm group">
-                                <div className="flex justify-between items-start mb-6">
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] py-1 px-3 bg-accent/10 text-accent rounded-full">
-                                        {matter.category}
-                                    </span>
+                        <Reveal key={matter.title} delay={i * 50}>
+                            <div className="group h-full relative bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-800 dark:to-zinc-900 p-8 md:p-10 rounded-2xl border-2 border-zinc-200 dark:border-zinc-700 hover:border-accent transition-all duration-300 shadow-sm hover:shadow-2xl hover:scale-[1.02] overflow-hidden">
+                                {/* Decorative Glow */}
+                                <div className="absolute top-0 left-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                {/* Decorative Icon */}
+                                <div className="absolute top-8 right-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                                    <Scale size={80} className="text-accent" />
                                 </div>
-                                <h3 className="text-2xl font-serif mb-4 group-hover:text-accent transition-colors">{matter.title}</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-grow">
-                                    {matter.desc}
-                                </p>
-                                <div className="pt-6 border-t border-border mt-auto">
-                                    <p className="text-xs font-bold uppercase tracking-widest text-foreground/80 mb-3 flex items-center gap-2">
-                                        Professional Role & Impact
+
+                                <div className="relative">
+                                    {/* Category Badge */}
+                                    <div className="flex justify-between items-start mb-6">
+                                        <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] py-2 px-4 bg-accent/10 text-accent rounded-full border border-accent/20">
+                                            <FileText size={14} />
+                                            {matter.category}
+                                        </span>
+                                    </div>
+
+                                    {/* Title */}
+                                    <h3 className="text-2xl md:text-3xl font-serif mb-6 group-hover:text-accent transition-colors">
+                                        {matter.title}
+                                    </h3>
+
+                                    {/* Description */}
+                                    <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-8">
+                                        {matter.desc}
                                     </p>
-                                    <p className="text-sm text-muted-foreground italic leading-relaxed">
-                                        {matter.impact}
-                                    </p>
+
+                                    {/* Impact Section */}
+                                    <div className="pt-6 border-t-2 border-zinc-200 dark:border-zinc-700 mt-auto">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="h-px w-8 bg-accent" />
+                                            <p className="text-xs font-bold uppercase tracking-widest text-accent">
+                                                Professional Role & Impact
+                                            </p>
+                                        </div>
+                                        <p className="text-sm text-muted-foreground italic leading-relaxed">
+                                            {matter.impact}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </Reveal>
                     ))}
                 </div>
 
+                {/* Empty State */}
                 {filteredMatters.length === 0 && (
-                    <div className="py-32 text-center text-muted-foreground">
-                        No matters found in this category.
+                    <div className="py-32 text-center">
+                        <div className="inline-flex items-center justify-center w-20 h-20 bg-accent/10 rounded-full mb-6">
+                            <Filter className="text-accent" size={32} />
+                        </div>
+                        <p className="text-xl text-muted-foreground">
+                            No matters found in this category.
+                        </p>
                     </div>
                 )}
             </div>
