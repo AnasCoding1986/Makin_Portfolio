@@ -9,7 +9,6 @@ import { useScrollTop } from "@/hooks/use-scroll-top";
 import { Logo } from "@/components/logo";
 
 const navLinks = [
-    { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Experience", href: "/experience" },
@@ -99,13 +98,27 @@ export const Navbar = () => {
                     isOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >
-                <div className="flex flex-col pt-[72px] px-6 pb-6 gap-4 min-h-screen">
+                <div className="flex flex-col pt-[72px] px-6 pb-6 gap-2 min-h-screen">
+                    {/* Close Button Inside Menu */}
+                    <div className="flex justify-between items-start mb-4">
+                        <Link href="/" onClick={() => setIsOpen(false)} className="text-2xl font-serif font-bold text-foreground hover:text-accent transition-colors">
+                            Muhtasim Billah
+                        </Link>
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center justify-center h-10 w-10 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-foreground hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                            aria-label="Close menu"
+                        >
+                            <X size={20} />
+                        </button>
+                    </div>
+
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
                             className={cn(
-                                "text-xl font-serif border-b border-border pb-3",
+                                "text-base font-serif border-b border-border pb-2",
                                 pathname === link.href ? "text-accent" : "text-foreground"
                             )}
                         >
