@@ -301,10 +301,15 @@ export default function AboutPage() {
                                     <TrendingUp size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                 </Link>
 
-                                <button className="group flex items-center gap-3 px-10 py-5 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 bg-white dark:bg-zinc-800 border-2 border-accent/50 hover:border-accent text-foreground">
+                                <a
+                                    href="https://drive.google.com/file/d/1ukrrYkYlrSft5b0O3AxJUQVuR_yoTAxw/view?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group flex items-center gap-3 px-10 py-5 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 bg-white dark:bg-zinc-800 border-2 border-accent/50 hover:border-accent text-foreground"
+                                >
                                     Download CV (PDF)
                                     <Download size={20} className="group-hover:translate-y-1 transition-transform" />
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </Reveal>

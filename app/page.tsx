@@ -46,7 +46,7 @@ export default function Home() {
                                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </Link>
                                 <a
-                                    href="https://drive.google.com/uc?export=download&id=1939mjYsBMEdAHI_uOhsRRUeZfysrKsR0"
+                                    href="https://drive.google.com/file/d/1ukrrYkYlrSft5b0O3AxJUQVuR_yoTAxw/view?usp=sharing"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="group flex items-center gap-2 border-2 border-accent/50 hover:border-accent px-8 py-4 rounded-xl font-bold hover:bg-accent/5 transition-all bg-white dark:bg-zinc-800 hover:scale-105 shadow-lg"

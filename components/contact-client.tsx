@@ -41,6 +41,10 @@ export const ContactClient = () => {
 
         try {
             // Send email using EmailJS
+            console.log("Attempting to send email via EmailJS...");
+            console.log("Service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
+            console.log("Template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
+
             const result = await emailjs.send(
                 process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
                 process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
@@ -48,18 +52,35 @@ export const ContactClient = () => {
                     title: "New Contact Message",
                     name: formData.name,
                     email: formData.email,
+                    subject: formData.subject,
                     message: formData.message
                 },
                 process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
             );
 
+            console.log("EmailJS Response:", result);
+
             if (result.status === 200) {
                 setIsSuccess(true);
                 setFormData({ name: "", email: "", subject: "", message: "" });
             }
-        } catch (error) {
-            console.error("Email sending failed:", error);
-            setApiError("Failed to send message. Please try again or contact directly via email.");
+        } catch (error: any) {
+            console.error("Email sending failed - Full error:", error);
+            console.error("Error message:", error?.message || error?.text || "Unknown error");
+            console.error("Error status:", error?.status);
+
+            let errorMessage = "Failed to send message. Please try again or contact directly via email.";
+
+            // Provide more specific error messages
+            if (error?.text) {
+                if (error.text.includes("Invalid")) {
+                    errorMessage = "EmailJS configuration error. Please contact the site administrator.";
+                } else if (error.text.includes("not found")) {
+                    errorMessage = "Email service not configured. Please contact the site administrator.";
+                }
+            }
+
+            setApiError(errorMessage);
         } finally {
             setIsSubmitting(false);
         }

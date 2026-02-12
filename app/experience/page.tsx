@@ -286,10 +286,15 @@ export default function ExperiencePage() {
                             </p>
 
                             <div className="flex flex-wrap justify-center gap-6">
-                                <button className="group flex items-center gap-2 bg-accent text-white px-10 py-5 rounded-xl font-bold hover:brightness-110 transition-all shadow-xl hover:scale-105">
+                                <a
+                                    href="https://drive.google.com/file/d/1ukrrYkYlrSft5b0O3AxJUQVuR_yoTAxw/view?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group flex items-center gap-2 bg-accent text-white px-10 py-5 rounded-xl font-bold hover:brightness-110 transition-all shadow-xl hover:scale-105"
+                                >
                                     Download PDF CV
                                     <Download size={20} className="group-hover:translate-y-1 transition-transform" />
-                                </button>
+                                </a>
                                 <Link
                                     href="/contact"
                                     className="group flex items-center gap-2 border-2 border-white/30 px-10 py-5 rounded-xl font-bold hover:bg-white hover:text-primary transition-all hover:scale-105 bg-white/5"
