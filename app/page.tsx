@@ -123,7 +123,7 @@ export default function Home() {
                                 <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="relative">
                                     <Award className="w-8 h-8 text-accent mx-auto mb-3" />
-                                    <div className="text-3xl md:text-4xl font-bold text-accent mb-2">8+</div>
+                                    <div className="text-3xl md:text-4xl font-bold text-accent mb-2">10+</div>
                                     <div className="text-sm text-muted-foreground font-medium">Years Experience</div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@ export default function Home() {
                                 <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="relative">
                                     <Users className="w-8 h-8 text-accent mx-auto mb-3" />
-                                    <div className="text-3xl md:text-4xl font-bold text-accent mb-2">150+</div>
+                                    <div className="text-3xl md:text-4xl font-bold text-accent mb-2">1000+</div>
                                     <div className="text-sm text-muted-foreground font-medium">Cases Handled</div>
                                 </div>
                             </div>
